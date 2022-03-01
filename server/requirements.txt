@@ -1,0 +1,2 @@
+# Core
+fastapi>=0.74.1

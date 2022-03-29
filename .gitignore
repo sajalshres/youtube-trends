@@ -9,3 +9,6 @@ venv.bak/
 
 # Editor
 .vscode
+
+# Misc
+.DS_Store

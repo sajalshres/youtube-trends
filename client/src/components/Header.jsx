@@ -1,12 +1,16 @@
-import { Header as MantineHeader, Text } from "@mantine/core";
+import { ActionIcon, Group, Header as MantineHeader } from "@mantine/core";
+import { Bell } from "tabler-icons-react";
+import { Logo } from "./index";
 
-const Header = () => {
+const Header = ({ height = 70 }) => {
   return (
-    <MantineHeader height={70} p="md">
-      {/* Handle other responsive styles with MediaQuery component or createStyles function */}
-      <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
-        <Text>Application header</Text>
-      </div>
+    <MantineHeader height={height} style={{ padding: "0px 5px" }}>
+      <Group sx={{ height: "100%" }} px={20} position="apart">
+        <Logo />
+        <ActionIcon variant="default" size={32}>
+          <Bell size={24} />
+        </ActionIcon>
+      </Group>
     </MantineHeader>
   );
 };

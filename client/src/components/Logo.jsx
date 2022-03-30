@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Logo({ colorScheme }) {
+const Logo = ({ colorScheme }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,4 +28,6 @@ export function Logo({ colorScheme }) {
       />
     </svg>
   );
-}
+};
+
+export default Logo;

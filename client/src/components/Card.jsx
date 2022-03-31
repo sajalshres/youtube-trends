@@ -11,7 +11,7 @@ const Card = () => {
           </Avatar>
         </Grid.Col>
         <Grid.Col span={4} style={{ border: "1px solid black" }}>
-          2
+          Stats
         </Grid.Col>
       </Grid>
     </Paper>

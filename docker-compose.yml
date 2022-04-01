@@ -23,4 +23,7 @@ services:
     volumes:
       - ./notebook:/usr/src/app
       - ./.data:/usr/src/app/data
+    environment:
+      - KAGGLE_USER=sajalshres
+      - KAGGLE_KEY=f6a2fb9a63d829211573b1c3201afe0d
     container_name: "youtube-trends-notebook"

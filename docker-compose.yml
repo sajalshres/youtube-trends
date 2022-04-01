@@ -17,7 +17,7 @@ services:
       context: notebook
       dockerfile: dockerfile
     image: youtube-trends-notebook:latest
-    command: jupyter-lab --ip 0.0.0.0 --allow-root
+    command: jupyter notebook --config=config.json
     ports:
       - 8888:8888
     volumes:

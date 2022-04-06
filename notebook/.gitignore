@@ -5,4 +5,7 @@
 profile_default/
 ipython_config.py
 
+# Trash
+.Trash-*
+
 config.json

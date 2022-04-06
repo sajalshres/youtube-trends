@@ -1,0 +1,14 @@
+# data science
+kaggle==1.5.12
+pandas==1.4.1
+numpy==1.22.2
+matplotlib==3.5.1
+
+# database
+pymongo==4.1.0
+
+# terminal
+rich==11.2.0
+
+# development
+black

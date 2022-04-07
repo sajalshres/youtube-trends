@@ -1,2 +1,14 @@
 # Core
-fastapi>=0.74.1
+fastapi==0.75.1
+
+# Data science
+pandas==1.4.1
+numpy==1.22.2
+seaborn==0.11.2
+
+# Database
+pymongo==4.1.0
+
+
+# Deployment
+uvicorn[standard]==0.17.6

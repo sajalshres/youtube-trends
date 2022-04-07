@@ -2,11 +2,18 @@
 
 A dashboard for analysis and visualization of Youtube trends
 
-# Requirements
+## Requirements
 
 - Docker
 - Docker Compose
 
-# Instructions
+## Instructions
 
 - `docker-compose up`
+
+## Services
+
+- ETL
+- Client
+- Server
+- Notebook

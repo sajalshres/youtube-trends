@@ -1,18 +1,31 @@
+from asyncio.log import logger
 import json
 import glob
-
+import logging
 import pandas as pd
-from kaggle import api
+from rich.progress import track
+
+from utils import get_db
 
 
 class ETL:
-    def __init__(self, path="data"):
-        self.path = path
+    def __init__(self, config):
+        self.path = config["data_dir"]
+        self.db = get_db(
+            username=config["mongodb_username"],
+            password=config["mongodb_password"],
+            host=config["mongodb_host"],
+            port=config["mongodb_port"],
+        )
 
     def download(self, force=False):
+        from kaggle import api
+
         if not glob.glob(f"{self.path}/*_youtube_trending_data.csv") or not force:
+            logging.info("Data already exists, skipping")
             return
 
+        logging.info("Downloading dataset from kaggle")
         api.authenticate()
         api.dataset_download_files(
             "rsrishav/youtube-trending-video-dataset", path=self.path, unzip=True
@@ -21,7 +34,7 @@ class ETL:
     @property
     def countries(self):
         countries = [
-            item.split("/")[1].split("_")[0]
+            item.split("/")[-1].split("_")[0]
             for item in glob.glob(f"{self.path}/*_youtube_trending_data.csv")
         ]
         countries.sort()
@@ -30,7 +43,7 @@ class ETL:
     def data(self, country):
         data = pd.read_csv(f"{self.path}/{country}_youtube_trending_data.csv")
         columns = {
-            "video_id": "id",
+            "video_id": "video_id",
             "title": "title",
             "publishedAt": "published_at",
             "channelId": "channel_id",
@@ -65,8 +78,8 @@ class ETL:
             }
         )
 
-    def clean(data):
-        data = data.drop_duplicates(["id"], keep="last")
+    def clean(self, data):
+        data = data.drop_duplicates(["video_id"], keep="last")
 
         # remove unused columns
         unused_columns = ["thumbnail_link", "description"]
@@ -74,13 +87,13 @@ class ETL:
 
         return data
 
-    def start(self):
-        for country in self.countries:
+    def run(self):
+        for country in track(self.countries, description="Processing..."):
             # get data
             df = self.data(country)
             categories_df = self.categories(country)
 
-            print(
+            logging.debug(
                 f"Country {country} has {len(df)} rows and {len(categories_df)} categories"
             )
 
@@ -89,7 +102,7 @@ class ETL:
             current_categories.sort()
             categories_df = categories_df[categories_df["id"].isin(current_categories)]
 
-            print(f"{len(categories_df)} categories after cleaning")
+            logging.debug(f"{len(categories_df)} categories after cleaning")
 
             df = self.clean(data=df)
 
@@ -98,6 +111,12 @@ class ETL:
             )
             df = df.rename(columns={"category_id": "category"})
 
-            print(f"{len(df)} rows after cleaning\n\n")
+            logging.debug(f"{len(df)} rows after cleaning")
 
-            # df.to_csv(f"data/{country}_cleaned_data.csv", index=False)
+            collection = self.db[country.lower()]
+            collection.drop()
+
+            collection.insert_many(df.to_dict(orient="records"))
+            logger.debug(
+                f"{collection.count_documents({})} records added to collection {country.lower()}"
+            )

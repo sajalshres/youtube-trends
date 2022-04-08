@@ -26,6 +26,12 @@ services:
       - ./server/app:/usr/src/app
     depends_on:
       - mongodb
+    environment:
+      APP_NAME: Youtube Trends Analysis
+      APP_VERSION: 0.0.1
+      APP_MONGODB_URI: "mongodb://admin:Admin#2022@mongodb:27017"
+      APP_DATABASE_NAME: "youtube_trend_db"
+
     container_name: "youtube-trends-server"
 
   notebook:
@@ -46,7 +52,6 @@ services:
       - KAGGLE_KEY=f6a2fb9a63d829211573b1c3201afe0d
       - MONGO_USERNAME=admin
       - MONGO_PASSWORD=Admin#2022
-
     container_name: "youtube-trends-notebook"
 
   mongodb:

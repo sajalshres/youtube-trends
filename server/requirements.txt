@@ -7,7 +7,7 @@ numpy==1.22.2
 seaborn==0.11.2
 
 # Database
-pymongo==4.1.0
+motor==2.5.1
 
 
 # Deployment

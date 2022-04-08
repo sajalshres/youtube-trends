@@ -1,13 +1,17 @@
 from fastapi import APIRouter
+from tasks.models import CorrelationLikesAndView
+from tasks import crud
 
 router = APIRouter()
 
 
 @router.get(
-    "/correlation-likes-and-view", summary="Correlation between likes and views"
+    "/correlation-likes-and-view",
+    summary="Correlation between likes and views",
+    response_model=list[CorrelationLikesAndView],
 )
-def get_correlation_likes_and_view():
-    return {"status": "not implemented"}
+async def get_correlation_likes_and_view():
+    return await crud.get_correlation_likes_and_view()
 
 
 @router.get(

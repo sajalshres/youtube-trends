@@ -1,7 +1,8 @@
+import logging
 from fastapi import APIRouter, Depends
 
 from config import get_settings, Settings
-from tools.models import Status, Info
+from tools.models import Status, Info, Country
 from tools import crud
 
 router = APIRouter()
@@ -26,7 +27,6 @@ def get_status():
     response_model=Info,
 )
 async def get_info(settings: Settings = Depends(get_settings)):
-    print(await crud.get_server_info())
     return {
         "app_name": settings.app_name,
         "app_version": settings.app_version,
@@ -35,3 +35,9 @@ async def get_info(settings: Settings = Depends(get_settings)):
             "collections": await crud.get_collection_names(),
         },
     }
+
+
+@router.get("/countries", response_model=list[Country])
+async def get_countries():
+    data = await crud.get_countries()
+    return data

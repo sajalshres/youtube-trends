@@ -1,26 +1,39 @@
-import {
-  AppShell,
-  Container,
-  Stack,
-  Grid,
-  Button,
-  MediaQuery,
-  Paper,
-} from "@mantine/core";
+import { useState, useEffect } from "react";
+import { AppShell, Container, Stack, Grid } from "@mantine/core";
 
-import { Header, Card, BarChart } from "./components";
+import { Header, Card, BarChart, CountryMenu } from "./components";
+import { AvgHourToTrend } from "./tasks";
+import api from "./services/api";
+
+const fetchCountries = async () => {
+  let { data } = await api.get("/tools/countries");
+  return data;
+};
 
 function App() {
+  const [countries, setCountries] = useState(null);
+  const [country, setCountry] = useState("us");
+
+  useEffect(async () => {
+    const data = await fetchCountries();
+
+    setCountries(data);
+  }, []);
   return (
     <AppShell
-      header={<Header height={60} />}
+      header={
+        <Header
+          height={60}
+          countryMenu={<CountryMenu data={countries} setCountry={setCountry} />}
+        />
+      }
       styles={(theme) => ({
         main: {
           backgroundColor:
             theme.colorScheme === "dark"
               ? theme.colors.dark[8]
               : theme.colors.gray[1],
-          height: "100vh",
+          height: "150vh",
         },
       })}
     >
@@ -41,15 +54,8 @@ function App() {
             </Grid.Col>
           </Grid>
           <Grid gutter="xs">
-            <Grid.Col md={6} lg={6}>
-              <Paper shadow="xs" p="md">
-                <BarChart />
-              </Paper>
-            </Grid.Col>
-            <Grid.Col md={6} lg={6}>
-              <Paper shadow="xs" p="md">
-                <BarChart />
-              </Paper>
+            <Grid.Col span={12}>
+              <AvgHourToTrend country={country} />
             </Grid.Col>
           </Grid>
         </Stack>

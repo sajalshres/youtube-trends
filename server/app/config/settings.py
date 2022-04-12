@@ -6,3 +6,4 @@ class Settings(BaseSettings):
     app_version: str = Field(..., env="APP_VERSION")
     mongodb_uri: str = Field(..., env="APP_MONGODB_URI")
     database_name: str = Field(..., env="APP_DATABASE_NAME")
+    redis_uri: str = Field(..., env="APP_REDIS_URI")

@@ -4,6 +4,17 @@ services:
   client:
     build:
       context: client
+      dockerfile: dockerfile.prod
+    image: youtube-trends-client:prod
+    ports:
+      - 9000:9000
+    depends_on:
+      - mongodb
+    container_name: youtube-trends-client-prod
+
+  client-dev:
+    build:
+      context: client
       dockerfile: dockerfile
     image: youtube-trends-client:latest
     ports:
@@ -12,7 +23,7 @@ services:
       - ./client:/usr/src/app
     depends_on:
       - mongodb
-    container_name: "youtube-trends-client"
+    container_name: youtube-trends-client
 
   server:
     build:
@@ -29,10 +40,11 @@ services:
     environment:
       APP_NAME: Youtube Trends Analysis
       APP_VERSION: 0.0.1
-      APP_MONGODB_URI: "mongodb://admin:Admin#2022@mongodb:27017"
-      APP_DATABASE_NAME: "youtube_trend_db"
+      APP_MONGODB_URI: mongodb://admin:Admin#2022@mongodb:27017
+      APP_DATABASE_NAME: youtube_trend_db
+      APP_REDIS_URI: redis://redis:6379
 
-    container_name: "youtube-trends-server"
+    container_name: youtube-trends-server
 
   notebook:
     build:
@@ -48,11 +60,11 @@ services:
     depends_on:
       - mongodb
     environment:
-      - KAGGLE_USERNAME=sajalshres
-      - KAGGLE_KEY=f6a2fb9a63d829211573b1c3201afe0d
-      - MONGO_USERNAME=admin
-      - MONGO_PASSWORD=Admin#2022
-    container_name: "youtube-trends-notebook"
+      KAGGLE_USERNAME: sajalshres
+      KAGGLE_KEY: f6a2fb9a63d829211573b1c3201afe0d
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: Admin#2022
+    container_name: youtube-trends-notebook
 
   mongodb:
     image: mongo:5.0
@@ -62,4 +74,13 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: Admin#2022
-    container_name: "youtube-trends-mongodb"
+    container_name: youtube-trends-mongodb
+
+  redis:
+    image: redislabs/redismod
+    ports:
+      - 6379:6379
+    volumes:
+      - $PWD/.redis:/data
+    command: --dir /data
+    container_name: youtube-trends-redis

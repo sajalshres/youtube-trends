@@ -9,3 +9,9 @@ async def get_server_info() -> str:
 async def get_collection_names() -> list:
     names = await db.list_collection_names()
     return names
+
+
+async def get_countries() -> list:
+    cursor = db.countries.find({})
+
+    return await cursor.to_list(length=None)

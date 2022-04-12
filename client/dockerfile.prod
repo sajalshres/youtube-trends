@@ -1,0 +1,16 @@
+FROM node:17-alpine
+
+# set working dir
+WORKDIR /usr/src/app
+
+# copy source code
+COPY . .
+
+# install dependencies
+RUN yarn
+
+# build
+RUN yarn build
+
+# run dev server
+CMD ["yarn", "run", "start:prod"]

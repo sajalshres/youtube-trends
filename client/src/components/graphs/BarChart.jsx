@@ -1,59 +1,49 @@
 import { Container, Center } from "@mantine/core";
-import { ResponsiveBar } from "@nivo/bar";
+import { ResponsiveBar, Bar } from "@nivo/bar";
+import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
 
-const BarChart = () => {
-  const data = [
-    {
-      day: "Monday",
-      degress: 59,
-    },
-    {
-      day: "Tuesday",
-      degress: 61,
-    },
-    {
-      day: "Wednesday",
-      degress: 55,
-    },
-    {
-      day: "Thursday",
-      degress: 78,
-    },
-    {
-      day: "Friday",
-      degress: 71,
-    },
-    {
-      day: "Saturday",
-      degress: 56,
-    },
-    {
-      day: "Sunday",
-      degress: 67,
-    },
-  ];
+const BarChart = ({ data, height, width }) => {
+  if (!data) return null;
+  console.log({ dataIsHere: data });
   return (
-    <Container size="sm" style={{ height: "400px" }}>
+    <Container size="sm" style={{ height: "700px", maxWidth: "80%" }}>
       <ResponsiveBar
         data={data}
-        keys={["degress"]}
-        indexBy="day"
-        margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
-        padding={0.4}
+        keys={["avgHours"]}
+        indexBy="category"
+        margin={{ top: 50, right: 10, bottom: 50, left: 100 }}
+        padding={0.6}
+        groupMode="grouped"
         valueScale={{ type: "linear" }}
         colors="#3182CE"
         animate={true}
-        enableLabel={false}
+        enableLabel={true}
+        label={(d) => Math.round(d.value)}
+        labelTextColor="#ffffff"
         axisTop={null}
         axisRight={null}
-        axisLeft={{
+        axisBottom={{
+          enable: true,
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "degrees",
+          legend: "Category",
+          legendPosition: "middle",
+          legendOffset: 32,
+        }}
+        axisLeft={{
+          enable: true,
+          tickSize: 0,
+          tickPadding: 0,
+          tickRotation: 0,
+          legend: "Avg Hours",
           legendPosition: "middle",
           legendOffset: -40,
         }}
+        theme={{
+          fontSize: 10,
+        }}
+        tooltipLabel={(item) => item.indexValue}
       />
     </Container>
   );

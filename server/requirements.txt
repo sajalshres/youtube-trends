@@ -9,6 +9,9 @@ seaborn==0.11.2
 # Database
 motor==2.5.1
 
+# caching
+aioredis==2.0.1
+
 
 # Deployment
 uvicorn[standard]==0.17.6

@@ -1,11 +1,13 @@
-from asyncio.log import logger
+from itertools import count
 import json
 import glob
 import logging
+from matplotlib.pyplot import get
 import pandas as pd
 from rich.progress import track
 
 from utils import get_db
+from config import Countries
 
 
 class ETL:
@@ -88,7 +90,15 @@ class ETL:
         return data
 
     def run(self):
+        collection_countries = self.db["countries"]
+        collection_countries.drop()
+
         for country in track(self.countries, description="Processing..."):
+            # add country to countries collection
+            collection_countries.insert(
+                {"code": country, "name": getattr(Countries, country)}
+            )
+
             # get data
             df = self.data(country)
             categories_df = self.categories(country)
@@ -117,6 +127,6 @@ class ETL:
             collection.drop()
 
             collection.insert_many(df.to_dict(orient="records"))
-            logger.debug(
+            logging.debug(
                 f"{collection.count_documents({})} records added to collection {country.lower()}"
             )

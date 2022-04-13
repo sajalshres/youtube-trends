@@ -1,17 +1,29 @@
 import { orderBy } from "lodash";
 import { useState, useEffect } from "react";
-import { Group, Paper, Stack, Text, Skeleton, ActionIcon } from "@mantine/core";
+import {
+  Group,
+  Paper,
+  Stack,
+  Text,
+  Skeleton,
+  ActionIcon,
+  useMantineTheme,
+} from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { ColorPicker, SortAscending, SortDescending } from "tabler-icons-react";
-import { BarChart } from "../components";
+
+import { BarChart, ColorMenu } from "../components";
 import api from "../services/api";
 
 const AvgHourToTrend = ({ countryName = "us", countryMenu }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sortOrder, toggleSortOrder] = useToggle("asc", ["desc", "asc"]);
+  const theme = useMantineTheme();
+  const [color, setColor] = useState();
 
   useEffect(() => {
+    setColor(theme.colors.blue[6]);
     const fetchData = async () => {
       setLoading(true);
 
@@ -50,13 +62,15 @@ const AvgHourToTrend = ({ countryName = "us", countryMenu }) => {
             <ActionIcon variant="default" size={32} onClick={() => sortData()}>
               {sortOrder === "asc" ? <SortAscending /> : <SortDescending />}
             </ActionIcon>
-            <ActionIcon variant="default" size={32}>
-              <ColorPicker></ColorPicker>
-            </ActionIcon>
+            <ColorMenu
+              color={color}
+              setColor={setColor}
+              colors={theme.colors}
+            />
           </Group>
         </Group>
         <Skeleton visible={loading}>
-          <BarChart data={data} height="750px" />
+          <BarChart data={data} color={color} />
         </Skeleton>
       </Stack>
     </Paper>

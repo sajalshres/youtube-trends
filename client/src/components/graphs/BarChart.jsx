@@ -1,7 +1,7 @@
 import { Container, Center } from "@mantine/core";
 import { ResponsiveBar, Bar } from "@nivo/bar";
 
-const BarChart = ({ data, height, width }) => {
+const BarChart = ({ data, color }) => {
   if (!data) return null;
 
   return (
@@ -14,7 +14,7 @@ const BarChart = ({ data, height, width }) => {
         padding={0.6}
         groupMode="grouped"
         valueScale={{ type: "linear" }}
-        colors="#3182CE"
+        colors={color}
         animate={true}
         enableLabel={true}
         label={(d) => d.value}

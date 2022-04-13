@@ -6,25 +6,33 @@ import { AvgHourToTrend } from "./tasks";
 import api from "./services/api";
 
 const fetchCountries = async () => {
-  let { data } = await api.get("/tools/countries");
+  const { data } = await api.get("/tools/countries");
   return data;
 };
 
 function App() {
   const [countries, setCountries] = useState(null);
-  const [country, setCountry] = useState("us");
+  const [country, setCountry] = useState(null);
 
   useEffect(async () => {
     const data = await fetchCountries();
 
     setCountries(data);
+    setCountry(data[10]);
   }, []);
+
   return (
     <AppShell
       header={
         <Header
           height={60}
-          countryMenu={<CountryMenu data={countries} setCountry={setCountry} />}
+          countryMenu={
+            <CountryMenu
+              data={countries}
+              country={country}
+              setCountry={setCountry}
+            />
+          }
         />
       }
       styles={(theme) => ({
@@ -55,7 +63,17 @@ function App() {
           </Grid>
           <Grid gutter="xs">
             <Grid.Col span={12}>
-              <AvgHourToTrend country={country} />
+              <AvgHourToTrend
+                countryName={country?.code.toLowerCase()}
+                countryMenu={
+                  <CountryMenu
+                    isSmall={true}
+                    data={countries}
+                    country={country}
+                    setCountry={setCountry}
+                  />
+                }
+              />
             </Grid.Col>
           </Grid>
         </Stack>

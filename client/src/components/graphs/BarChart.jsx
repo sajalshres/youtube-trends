@@ -1,12 +1,11 @@
 import { Container, Center } from "@mantine/core";
 import { ResponsiveBar, Bar } from "@nivo/bar";
-import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
 
 const BarChart = ({ data, height, width }) => {
   if (!data) return null;
-  console.log({ dataIsHere: data });
+
   return (
-    <Container size="sm" style={{ height: "700px", maxWidth: "80%" }}>
+    <Container size="lg" style={{ height: "700px", maxWidth: "100%" }}>
       <ResponsiveBar
         data={data}
         keys={["avgHours"]}
@@ -18,7 +17,7 @@ const BarChart = ({ data, height, width }) => {
         colors="#3182CE"
         animate={true}
         enableLabel={true}
-        label={(d) => Math.round(d.value)}
+        label={(d) => d.value}
         labelTextColor="#ffffff"
         axisTop={null}
         axisRight={null}
@@ -41,7 +40,7 @@ const BarChart = ({ data, height, width }) => {
           legendOffset: -40,
         }}
         theme={{
-          fontSize: 10,
+          fontSize: "0.6em",
         }}
         tooltipLabel={(item) => item.indexValue}
       />

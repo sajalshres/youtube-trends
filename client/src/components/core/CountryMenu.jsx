@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   createStyles,
   UnstyledButton,
@@ -9,9 +9,9 @@ import {
 import { ChevronDown } from "tabler-icons-react";
 import icons from "../icons";
 
-const useStyles = createStyles((theme, { opened }) => ({
+const useStyles = createStyles((theme, { opened, width = 180 }) => ({
   control: {
-    width: 180,
+    width: width,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -47,21 +47,18 @@ const useStyles = createStyles((theme, { opened }) => ({
   },
 }));
 
-const CountryMenu = ({ data, setCountry }) => {
-  if (!data) return null;
+const CountryMenu = ({ isSmall = false, data, country, setCountry }) => {
+  if (!data || !country) return null;
 
   const [opened, setOpened] = useState(false);
-  const [selected, setSelected] = useState(data[10]);
-
-  const { classes } = useStyles({ opened });
+  const width = isSmall ? 70 : 180;
+  const { classes } = useStyles({ opened, width });
 
   const items = data.map((item) => (
     <Menu.Item
       icon={<Image src={icons[item.code]} width={18} height={18} />}
       onClick={() => {
-        console.log({ changedItem: item });
-        setSelected(item);
-        setCountry(item.code.toLowerCase());
+        setCountry(item);
       }}
       key={item.name}
     >
@@ -79,8 +76,8 @@ const CountryMenu = ({ data, setCountry }) => {
       control={
         <UnstyledButton className={classes.control}>
           <Group spacing="xs">
-            <Image src={icons[selected.code]} width={22} height={22} />
-            <span className={classes.label}>{selected.name}</span>
+            <Image src={icons[country.code]} width={22} height={22} />
+            <span className={classes.label}>{!isSmall && country.name}</span>
           </Group>
           <ChevronDown size={16} className={classes.icon} />
         </UnstyledButton>

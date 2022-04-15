@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { AppShell, Container, Stack, Grid } from "@mantine/core";
 
 import { Header, Card, BarChart, CountryMenu } from "./components";
+import { Flag, GridDots, BrandYoutube, PlayerPlay } from "tabler-icons-react";
+
 import { AvgHourToTrend } from "./tasks";
 import api from "./services/api";
 
@@ -49,16 +51,32 @@ function App() {
         <Stack>
           <Grid gutter="xs">
             <Grid.Col md={6} lg={3}>
-              <Card />
+              <Card
+                icon={<Flag size={64} />}
+                title="Total Countries"
+                count="9"
+              />
             </Grid.Col>
             <Grid.Col md={6} lg={3}>
-              <Card />
+              <Card
+                icon={<GridDots size={64} />}
+                title="Total Categories"
+                count="19"
+              />
             </Grid.Col>
             <Grid.Col md={6} lg={3}>
-              <Card />
+              <Card
+                icon={<BrandYoutube size={64} />}
+                title="Total Videos"
+                count="200000"
+              />
             </Grid.Col>
             <Grid.Col md={6} lg={3}>
-              <Card />
+              <Card
+                icon={<PlayerPlay size={64} />}
+                title="Total Channels"
+                count="10000"
+              />
             </Grid.Col>
           </Grid>
           <Grid gutter="xs">

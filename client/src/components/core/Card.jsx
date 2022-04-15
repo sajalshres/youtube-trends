@@ -1,19 +1,68 @@
-import { Paper, Avatar, Grid, Stack, Button } from "@mantine/core";
-import { Star } from "tabler-icons-react";
+import {
+  createStyles,
+  Paper,
+  Avatar,
+  Grid,
+  Stack,
+  Button,
+  Text,
+} from "@mantine/core";
+import { Star, Flag } from "tabler-icons-react";
 
-const Card = () => {
+const useStyles = createStyles((theme) => ({
+  root: {
+    padding: theme.spacing.xl * 1.5,
+  },
+
+  avatar: {
+    border: "5px solid #dee2e6",
+    height: "90px",
+    width: "90px",
+    minWidth: "90px",
+  },
+
+  label: {
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+  },
+}));
+
+const Card = ({ icon, title, count }) => {
+  const { classes } = useStyles();
+
   return (
     <Paper shadow="xs" p="md">
-      <Grid grow="true">
-        <Grid.Col span={2} style={{ border: "1px solid black" }}>
-          <Avatar color="blue" size="xl" radius={50}>
-            <Star size={64} />
+      <Grid grow="true" gutter="xs">
+        <Grid.Col
+          span={1}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Avatar
+            color="blue"
+            size="xl"
+            radius={50}
+            variant="light"
+            className={classes.avatar}
+          >
+            {icon}
           </Avatar>
         </Grid.Col>
-        <Grid.Col span={4} style={{ border: "1px solid black" }}>
-          <Stack>
-            <Button>1</Button>
-            <Button>2</Button>
+        <Grid.Col span={4}>
+          <Stack spacing={0} align="flex-start" style={{ marginTop: "10px" }}>
+            <Text
+              color="dimmed"
+              transform="uppercase"
+              weight={700}
+              size="xl"
+              className={classes.label}
+            >
+              {title}
+            </Text>
+            <Text weight={700} size="xl">
+              {count}
+            </Text>
           </Stack>
         </Grid.Col>
       </Grid>

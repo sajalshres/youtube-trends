@@ -10,7 +10,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
-import { ColorPicker, SortAscending, SortDescending } from "tabler-icons-react";
+import { SortAscending, SortDescending } from "tabler-icons-react";
 
 import { BarChart, ColorMenu } from "../components";
 import api from "../services/api";

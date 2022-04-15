@@ -1,5 +1,5 @@
-import { Container, Center } from "@mantine/core";
-import { ResponsiveBar, Bar } from "@nivo/bar";
+import { Container } from "@mantine/core";
+import { ResponsiveBar } from "@nivo/bar";
 
 const BarChart = ({ data, color }) => {
   if (!data) return null;
@@ -11,7 +11,7 @@ const BarChart = ({ data, color }) => {
         keys={["avgHours"]}
         indexBy="category"
         margin={{ top: 50, right: 10, bottom: 50, left: 100 }}
-        padding={0.6}
+        padding={0.4}
         groupMode="grouped"
         valueScale={{ type: "linear" }}
         colors={color}
@@ -40,7 +40,7 @@ const BarChart = ({ data, color }) => {
           legendOffset: -40,
         }}
         theme={{
-          fontSize: "0.6em",
+          fontSize: "0.8em",
         }}
         tooltipLabel={(item) => item.indexValue}
       />

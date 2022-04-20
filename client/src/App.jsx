@@ -94,10 +94,30 @@ function App() {
           </Grid>
           <Grid gutter="xs">
             <Grid.Col span={6}>
-              <LikesAndView />
+              <LikesAndView
+                countryName={country?.code.toLowerCase()}
+                countryMenu={
+                  <CountryMenu
+                    isSmall={true}
+                    data={countries}
+                    country={country}
+                    setCountry={setCountry}
+                  />
+                }
+              />
             </Grid.Col>
             <Grid.Col span={6}>
-              <TitleLengthFrequency />
+              <TitleLengthFrequency
+                countryName={country?.code.toLowerCase()}
+                countryMenu={
+                  <CountryMenu
+                    isSmall={true}
+                    data={countries}
+                    country={country}
+                    setCountry={setCountry}
+                  />
+                }
+              />
             </Grid.Col>
           </Grid>
           <Grid gutter="xs">

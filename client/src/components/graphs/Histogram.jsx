@@ -24,9 +24,9 @@ const Histogram = ({ data }) => {
       setTimeout(() => {
         const element = document.querySelector('[class="vx-bar"][y="0"]');
         element.setAttribute("fill", "orange");
-      }, 2000);
+      }, 1000);
     }
-  }, []);
+  }, [data]);
 
   return (
     <ResponsiveHistogram

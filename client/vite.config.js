@@ -16,7 +16,6 @@ export default defineConfig({
         target: "https://dev.sajalshres.com",
         changeOrigin: true,
         rewrite: (path) => {
-          console.log(path);
           return path;
         },
         secure: false,

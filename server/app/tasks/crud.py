@@ -68,6 +68,15 @@ async def get_frequency_title_length(country: str = "us"):
 async def get_day_of_week():
     data = []
     countries = await db.countries.find({}).to_list(length=None)
+    order_day = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ]
 
     for country in countries:
         country_code = country["code"].lower()
@@ -79,6 +88,8 @@ async def get_day_of_week():
         res_df = df.groupby(["trending_day"], as_index=False).agg(
             view_count=("view_count", "sum")
         )
+        res_df = res_df.groupby(["trending_day"]).sum().reindex(order_day)
+        res_df.reset_index(inplace=True)
         res_df = res_df.rename(columns={"trending_day": "x", "view_count": "y"})
 
         data.append({"id": country["name"], "data": res_df.to_dict(orient="records")})

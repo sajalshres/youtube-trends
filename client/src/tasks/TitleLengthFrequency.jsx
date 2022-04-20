@@ -20,7 +20,7 @@ const fetchData = async ({ countryName }) => {
   return data?.frequency;
 };
 
-const TitleLengthFrequency = ({ countryName = "us" }) => {
+const TitleLengthFrequency = ({ countryName = "us", countryMenu }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -28,9 +28,10 @@ const TitleLengthFrequency = ({ countryName = "us" }) => {
     setLoading(true);
 
     const data = await fetchData({ countryName });
+    setData(null);
 
     setData(data);
-    setLoading(false);
+    setTimeout(() => setLoading(false), 2000);
   }, [countryName]);
 
   return (
@@ -40,6 +41,9 @@ const TitleLengthFrequency = ({ countryName = "us" }) => {
           <Text size="xl" transform="capitalize">
             Frequency of Title Length
           </Text>
+          <Group position="right" spacing="xs">
+            {countryMenu}
+          </Group>
         </Group>
         <Skeleton visible={loading}>
           <Histogram data={data} />

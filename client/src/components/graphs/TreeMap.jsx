@@ -1,7 +1,7 @@
 import { Container } from "@mantine/core";
 import { ResponsiveTreeMap } from "@nivo/treemap";
 
-const TreeMap = ({ data }) => {
+const TreeMap = ({ data, labelBy }) => {
   if (!data) return null;
 
   return (
@@ -12,13 +12,16 @@ const TreeMap = ({ data }) => {
         value="count"
         valueFormat=".02s"
         margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+        colors={{ scheme: "set3" }}
         labelSkipSize={32}
         labelTextColor={{
           from: "color",
           modifiers: [["darker", 1.2]],
         }}
         label={(node) => {
-          let { id } = node;
+          let { id, formattedValue } = node;
+          if (labelBy === "count") return formattedValue;
+
           if (id.length > 10) {
             id = `${id.substring(0, 8)}...`;
           }

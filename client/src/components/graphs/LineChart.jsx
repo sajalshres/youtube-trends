@@ -29,14 +29,18 @@ const LineChart = ({ data }) => {
           legendPosition: "middle",
         }}
         axisLeft={{
+          format: (value) => {
+            return value / 1000000;
+          },
           orient: "left",
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "count",
-          legendOffset: -40,
+          legend: "Count (In Millions)",
+          legendOffset: -50,
           legendPosition: "middle",
         }}
+        colors={{ scheme: "category10" }}
         pointSize={10}
         pointColor={{ theme: "background" }}
         pointBorderWidth={2}

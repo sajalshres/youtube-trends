@@ -11,7 +11,6 @@ import {
 } from "@mantine/core";
 
 import { Histogram } from "../components/graphs";
-import { histogramData } from "./data";
 
 const fetchData = async ({ countryName }) => {
   let { data } = await api.get(

@@ -9,6 +9,7 @@ import {
   LikesAndView,
   PopularTags,
   TitleLengthFrequency,
+  DayOfWeekTrend,
 } from "./tasks";
 import api from "./services/api";
 
@@ -117,6 +118,11 @@ function App() {
                   />
                 }
               />
+            </Grid.Col>
+          </Grid>
+          <Grid gutter="xs">
+            <Grid.Col span={12}>
+              <DayOfWeekTrend />
             </Grid.Col>
           </Grid>
         </Stack>

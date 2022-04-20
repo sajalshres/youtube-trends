@@ -79,7 +79,7 @@ async def get_day_of_week():
         res_df = df.groupby(["trending_day"], as_index=False).agg(
             view_count=("view_count", "sum")
         )
-        print(res_df.to_dict(orient="records"))
+        res_df = res_df.rename(columns={"trending_day": "x", "view_count": "y"})
 
         data.append({"id": country["name"], "data": res_df.to_dict(orient="records")})
 

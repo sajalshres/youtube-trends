@@ -14,6 +14,7 @@
     "@mantine/hooks": "^4.1.0",
     "@nivo/bar": "^0.79.1",
     "@nivo/core": "^0.79.0",
+    "@nivo/line": "^0.79.1",
     "@nivo/scatterplot": "^0.79.1",
     "@nivo/treemap": "^0.79.1",
     "axios": "^0.26.1",

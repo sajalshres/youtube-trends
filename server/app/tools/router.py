@@ -1,7 +1,8 @@
 import logging
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response, status
 
 from config import get_settings, Settings
+from cache.utils import remove_cache
 from tools.models import Status, Info
 from tools import crud
 
@@ -35,3 +36,14 @@ async def get_info(settings: Settings = Depends(get_settings)):
             "collections": await crud.get_collection_names(),
         },
     }
+
+
+@router.get("/clear-cache")
+async def clear_clear(response: Response, key: str | None = None):
+    if not key:
+        response.status_code = status.HTTP_422_UNPROCESSABLE_ENTITY
+        return {"status": "not implemented"}
+
+    await remove_cache(key)
+
+    return {"status": "ok"}

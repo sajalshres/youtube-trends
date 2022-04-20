@@ -1,19 +1,6 @@
-import {
-  createStyles,
-  Paper,
-  Avatar,
-  Grid,
-  Stack,
-  Button,
-  Text,
-} from "@mantine/core";
-import { Star, Flag } from "tabler-icons-react";
+import { createStyles, Paper, Avatar, Grid, Stack, Text } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
-  root: {
-    padding: theme.spacing.xl * 1.5,
-  },
-
   avatar: {
     border: "5px solid #dee2e6",
     height: "90px",
@@ -21,7 +8,7 @@ const useStyles = createStyles((theme) => ({
     minWidth: "90px",
   },
 
-  label: {
+  title: {
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
   },
 }));
@@ -56,7 +43,7 @@ const Card = ({ icon, title, count }) => {
               transform="uppercase"
               weight={700}
               size="xl"
-              className={classes.label}
+              className={classes.title}
             >
               {title}
             </Text>

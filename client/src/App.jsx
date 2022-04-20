@@ -1,26 +1,38 @@
 import { useState, useEffect } from "react";
 import { AppShell, Container, Stack, Grid } from "@mantine/core";
 
-import { Header, Card, BarChart, CountryMenu } from "./components";
+import { Header, Card, CountryMenu } from "./components";
 import { Flag, GridDots, BrandYoutube, PlayerPlay } from "tabler-icons-react";
 
-import { AvgHourToTrend } from "./tasks";
+import {
+  AvgHourToTrend,
+  LikesAndView,
+  PopularTags,
+  TitleLengthFrequency,
+} from "./tasks";
 import api from "./services/api";
 
 const fetchCountries = async () => {
-  const { data } = await api.get("/tools/countries");
+  const { data } = await api.get("/core/countries");
+  return data;
+};
+
+const fetchStats = async () => {
+  const { data } = await api.get("/core/stats");
   return data;
 };
 
 function App() {
   const [countries, setCountries] = useState(null);
   const [country, setCountry] = useState(null);
+  const [stats, setStats] = useState(null);
 
   useEffect(async () => {
     const data = await fetchCountries();
 
     setCountries(data);
     setCountry(data[10]);
+    setStats(await fetchStats());
   }, []);
 
   return (
@@ -43,7 +55,7 @@ function App() {
             theme.colorScheme === "dark"
               ? theme.colors.dark[8]
               : theme.colors.gray[1],
-          height: "150vh",
+          height: "250vh",
         },
       })}
     >
@@ -53,30 +65,43 @@ function App() {
             <Grid.Col md={6} lg={3}>
               <Card
                 icon={<Flag size={64} />}
-                title="Total Countries"
-                count="9"
+                title="Countries"
+                count={stats?.countries}
               />
             </Grid.Col>
             <Grid.Col md={6} lg={3}>
               <Card
                 icon={<GridDots size={64} />}
-                title="Total Categories"
-                count="19"
+                title="Categories"
+                count={stats?.categories}
               />
             </Grid.Col>
             <Grid.Col md={6} lg={3}>
               <Card
                 icon={<BrandYoutube size={64} />}
-                title="Total Videos"
-                count="200000"
+                title="Videos"
+                count={stats?.videos.toLocaleString("en-US")}
               />
             </Grid.Col>
             <Grid.Col md={6} lg={3}>
               <Card
                 icon={<PlayerPlay size={64} />}
-                title="Total Channels"
-                count="10000"
+                title="Channels"
+                count={stats?.channels.toLocaleString("en-US")}
               />
+            </Grid.Col>
+          </Grid>
+          <Grid gutter="xs">
+            <Grid.Col span={6}>
+              <LikesAndView />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <TitleLengthFrequency />
+            </Grid.Col>
+          </Grid>
+          <Grid gutter="xs">
+            <Grid.Col span={12}>
+              <PopularTags />
             </Grid.Col>
           </Grid>
           <Grid gutter="xs">

@@ -17,3 +17,11 @@ async def get_cache(key: str) -> dict | list | None:
 
     logger.info(f"Data for {key} not found in cache")
     return None
+
+
+async def remove_cache(key: str) -> None:
+    res = await redis.delete(key)
+
+    print(f"Delete cache ({key}):", res)
+
+    return None

@@ -29,11 +29,3 @@ class Info(BaseModel):
                 "db": {"version": "5.0.0", "collections": ["usa", "ca"]},
             }
         }
-
-
-class Country(BaseModel):
-    code: str
-    name: str
-
-    class Config:
-        schema_extra = {"example": {"code": "US", "name": "USA"}}

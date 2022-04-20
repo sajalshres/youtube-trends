@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import api from "../services/api";
 import {
   Group,
@@ -21,21 +21,28 @@ const fetchData = async ({ countryName }) => {
 };
 
 const TitleLengthFrequency = ({ countryName = "us", countryMenu }) => {
+  const targetRef = useRef();
+  const [size, setSize] = useState({ width: null, height: null });
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
-    setLoading(true);
+    if (targetRef.current) {
+      setSize({
+        width: targetRef.current.offsetWidth,
+        height: targetRef.current.offsetHeight,
+      });
+    }
 
+    setLoading(true);
     const data = await fetchData({ countryName });
     setData(null);
-
     setData(data);
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => setLoading(false), 3000);
   }, [countryName]);
 
   return (
-    <Paper shadow="xl" p="md" style={{ minHeight: "500px" }}>
+    <Paper shadow="xl" p="md" style={{ minHeight: "580px" }} ref={targetRef}>
       <Stack>
         <Group position="apart">
           <Text size="xl" transform="capitalize">
@@ -46,7 +53,7 @@ const TitleLengthFrequency = ({ countryName = "us", countryMenu }) => {
           </Group>
         </Group>
         <Skeleton visible={loading}>
-          <Histogram data={data} />
+          <Histogram data={data} width={size?.width} />
         </Skeleton>
       </Stack>
     </Paper>

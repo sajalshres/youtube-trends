@@ -16,23 +16,23 @@ const ResponsiveHistogram = withParentSize(
   )
 );
 
-const Histogram = ({ data }) => {
+const Histogram = ({ data, width = 650, height = 497 }) => {
   if (!data) return null;
 
   useEffect(() => {
     if (data) {
       setTimeout(() => {
         const element = document.querySelector('[class="vx-bar"][y="0"]');
-        element.setAttribute("fill", "orange");
+        if (element) element.setAttribute("fill", "orange");
       }, 1000);
     }
   }, [data]);
 
   return (
     <ResponsiveHistogram
-      width={650}
-      height={497}
-      ariaLabel="My histogram of ..."
+      width={width - 15}
+      height={height}
+      ariaLabel="Histogram"
       orientation="vertical"
       valueAccessor={(datum) => datum}
       renderTooltip={({ event, datum, data, color }) => (

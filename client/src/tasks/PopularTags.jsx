@@ -19,7 +19,7 @@ import { TreeMap } from "../components/graphs";
 const LimitMenu = ({ limit, setLimit }) => {
   const [opened, setOpened] = useState(false);
 
-  const limits = [10, 20, 30];
+  const limits = [10, 20, 30, 40, 50];
 
   const menuItems = limits.map((limit) => {
     return (

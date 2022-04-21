@@ -12,7 +12,21 @@ const TreeMap = ({ data, labelBy }) => {
         value="count"
         valueFormat=".02s"
         margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-        colors={{ scheme: "set3" }}
+        // colors={{ scheme: "set3" }}
+
+        colors={[
+          "#1A85FF",
+          "#1f78b4",
+          "#fb9a99",
+          "#ff7f00",
+          "#6a3d9a",
+          "#b15928",
+          "#fdb462",
+          "#bc80bd",
+          "#40B0A6",
+          "#9D02D7",
+          "#27647B",
+        ]}
         labelSkipSize={32}
         labelTextColor={{
           from: "color",

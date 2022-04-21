@@ -6,7 +6,6 @@ import {
   YAxis,
 } from "@data-ui/histogram";
 import { useEffect, useRef } from "react";
-import * as ReactDom from "react-dom";
 
 // https://williaster.github.io/data-ui/?selectedKind=histogram&selectedStory=normalized&full=0&addons=0&stories=1&panelRight=0
 

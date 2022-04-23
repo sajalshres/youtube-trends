@@ -40,7 +40,19 @@ const LineChart = ({ data }) => {
           legendOffset: -50,
           legendPosition: "middle",
         }}
-        colors={{ scheme: "category10" }}
+        colors={[
+          "#27647B",
+          "#1A85FF",
+          "#1f78b4",
+          "#adadad",
+          "#ff7f00",
+          "#6a3d9a",
+          "#b15928",
+          "#fdb462",
+          "#bc80bd",
+          "#40B0A6",
+          "#9D02D7",
+        ]}
         pointSize={10}
         pointColor={{ theme: "background" }}
         pointBorderWidth={2}

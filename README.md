@@ -7,13 +7,30 @@ A dashboard for analysis and visualization of Youtube trends
 - Docker
 - Docker Compose
 
-## Instructions
+## Tech Stack
 
-- `docker-compose up`
+- ReactJS
+- Nivo Charts(D3)
+- JavaScript
+- FastAPI
+- Pandas and Numpy
+- Python
+- MongoDB
+- Redis Cache
 
 ## Services
 
-- ETL
+- CLI (ETL TOOL)
 - Client
 - Server
 - Notebook
+
+## Instructions
+
+Start the instances
+
+```bash
+$ docker-compose up --build
+```
+
+Visit [http://localhost:3000](http://localhost:3000) in your local browser.

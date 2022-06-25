@@ -16,10 +16,10 @@ import { BarChart, ColorMenu } from "../components";
 import api from "../services/api";
 
 const AvgHourToTrend = ({ countryName = "us", countryMenu }) => {
+  const theme = useMantineTheme();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sortOrder, toggleSortOrder] = useToggle("asc", ["desc", "asc"]);
-  const theme = useMantineTheme();
   const [color, setColor] = useState();
 
   useEffect(() => {

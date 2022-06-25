@@ -60,7 +60,7 @@ function App() {
         },
       })}
     >
-      <Container fluid style={{ maxWidth: "80vw" }}>
+      <Container fluid style={{ maxWidth: "90vw" }}>
         <Stack>
           <Grid gutter="xs">
             <Grid.Col md={6} lg={3}>

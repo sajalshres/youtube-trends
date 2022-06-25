@@ -4,15 +4,13 @@ services:
   client:
     build:
       context: client
-      dockerfile: dockerfile
-    image: youtube-trends-client:latest
+      dockerfile: dockerfile.prod
+    image: youtube-trends-client:prod
     ports:
-      - 3000:3000
-    volumes:
-      - ./client:/usr/src/app
+      - 9000:9000
     depends_on:
       - mongodb
-    container_name: youtube-trends-client
+    container_name: youtube-trends-client-prod
 
   server:
     build:

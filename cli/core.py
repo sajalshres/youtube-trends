@@ -23,7 +23,7 @@ class ETL:
     def download(self, force=False):
         from kaggle import api
 
-        if not glob.glob(f"{self.path}/*_youtube_trending_data.csv") or not force:
+        if glob.glob(f"{self.path}/*_youtube_trending_data.csv") or not force:
             logging.info("Data already exists, skipping")
             return
 
@@ -95,7 +95,7 @@ class ETL:
 
         for country in track(self.countries, description="Processing..."):
             # add country to countries collection
-            collection_countries.insert(
+            collection_countries.insert_one(
                 {"code": country, "name": getattr(Countries, country)}
             )
 

@@ -8,8 +8,8 @@ services:
     image: youtube-trends-client:latest
     ports:
       - 3000:3000
-    volumes:
-      - ./client:/usr/src/app
+    # volumes:
+    #   - ./client:/usr/src/app
     depends_on:
       - mongodb
     container_name: youtube-trends-client

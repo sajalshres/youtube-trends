@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       "^/api": {
-        target: "https://dev.sajalshres.com",
+        target: "http://server:8000",
         changeOrigin: true,
         rewrite: (path) => {
           return path;

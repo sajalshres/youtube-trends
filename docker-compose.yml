@@ -49,8 +49,8 @@ services:
     depends_on:
       - mongodb
     environment:
-      KAGGLE_USERNAME: sajalshres
-      KAGGLE_KEY: f6a2fb9a63d829211573b1c3201afe0d
+      KAGGLE_USERNAME: <kaggle-username>
+      KAGGLE_KEY: <kaggle-key>
       MONGO_USERNAME: admin
       MONGO_PASSWORD: Admin#2022
     container_name: youtube-trends-notebook
